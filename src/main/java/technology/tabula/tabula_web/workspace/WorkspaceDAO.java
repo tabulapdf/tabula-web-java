@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -66,8 +65,11 @@ public class WorkspaceDAO {
 	
 	public List<DocumentPage> getFilePages(String id) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
 		Type targetClassType = new TypeToken<List<DocumentPage>>() { }.getType();
-		System.out.println(Paths.get(this.dataDir, "pdfs", id, "pages.json").toString());
 	    return new Gson().fromJson(new FileReader(Paths.get(this.dataDir, "pdfs", id, "pages.json").toString()), targetClassType);
+	}
+	
+	public String getDocumentPath(String id) {
+		return Paths.get(this.dataDir, "pdfs", id, "document.pdf").toString();
 	}
 
 	public String getDataDir() {

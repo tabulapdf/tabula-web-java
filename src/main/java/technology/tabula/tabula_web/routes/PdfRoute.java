@@ -21,10 +21,9 @@ public class PdfRoute implements RouteGroup {
 	public void addRoutes() {
 		get(":file_id/metadata.json", (req, rsp) -> {
 			rsp.type("application/json");
-			WorkspaceEntry we = this.workspaceDAO.getFileMetadata(req.params(":file_id")); 
-			return we;
+			return this.workspaceDAO.getFileMetadata(req.params(":file_id")); 
 		}, new JsonTransformer());
 		
-		post(":file_id/data", new ExtractData());
+		post(":file_id/data", new ExtractData(this.workspaceDAO));
 	}
 }

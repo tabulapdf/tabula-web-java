@@ -10,6 +10,11 @@ public class CoordSpec implements Comparable<CoordSpec> {
 	public float y2;
 	public float width;
 	public float height;
+	public int spec_index;
+	
+	public Integer getPage() {
+		return this.page;
+	}
 
 	@Override
 	public int compareTo(CoordSpec o) {
