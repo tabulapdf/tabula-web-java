@@ -1,10 +1,6 @@
 package technology.tabula.tabula_web.workspace;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,9 +39,11 @@ public class FileWorkspaceDAO implements WorkspaceDAO {
 		this.readWorkspace();
 	}
 	
-	private synchronized void readWorkspace() throws JsonIOException, JsonSyntaxException, FileNotFoundException {
+	private synchronized void readWorkspace() throws JsonIOException, JsonSyntaxException, IOException {
+        FileReader fr = new FileReader(workspacePath.toString());
 		Type targetClassType = new TypeToken<Workspace>() { }.getType();
-	    this.workspace = new Gson().fromJson(new FileReader(workspacePath.toString()), targetClassType);
+	    this.workspace = new Gson().fromJson(fr, targetClassType);
+	    fr.close();
 	}
 
 	/* (non-Javadoc)
@@ -56,7 +54,7 @@ public class FileWorkspaceDAO implements WorkspaceDAO {
 		
 		try {
 			this.readWorkspace();
-		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
+		} catch (JsonIOException | JsonSyntaxException | IOException e) {
 			throw new WorkspaceException(e);
 		}
 		return this.workspace;
@@ -64,22 +62,34 @@ public class FileWorkspaceDAO implements WorkspaceDAO {
 	
 	private synchronized void flushWorkspace() throws JsonIOException, IOException {
 		Gson gson = new GsonBuilder().create();
-		gson.toJson(this.workspace,	 new FileWriter(this.workspacePath.toString()));
+        FileWriter fw = new FileWriter(this.workspacePath.toString());
+		gson.toJson(this.workspace,	fw);
+		fw.close();
 	}
 	
 	/* (non-Javadoc)
-	 * @see technology.tabula.tabula_web.workspace.WorkspaceDAO#addToWorkspace(technology.tabula.tabula_web.workspace.WorkspaceEntry, java.util.List)
+	 * @see technology.tabula.tabula_web.workspace.WorkspaceDAO#addToWorkspace(technology.tabula.tabula_web.workspace.WorkspaceDocument, java.util.List)
 	 */
 	@Override
-	public synchronized void addToWorkspace(WorkspaceEntry we, List<DocumentPage> pages) throws WorkspaceException {
+	public synchronized void addToWorkspace(WorkspaceDocument we, List<DocumentPage> pages) throws WorkspaceException {
 		try {
 			this.readWorkspace();
-		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
+		} catch (JsonIOException | JsonSyntaxException | IOException e) {
 			throw new WorkspaceException(e);
 		}
 		this.workspace.add(0, we);
 
-		try {
+		// add :document_id/pages.json file
+        StringBuilder sb = new StringBuilder();
+        new Gson().toJson(pages, sb);
+
+        try {
+            this.addFile(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")), we.id, "pages.json");
+        } catch (UnsupportedEncodingException e) {
+           throw new WorkspaceException(e);
+        }
+
+        try {
 			this.flushWorkspace();
 		} catch (JsonIOException | IOException e) {
 			throw new WorkspaceException(e);
@@ -90,14 +100,14 @@ public class FileWorkspaceDAO implements WorkspaceDAO {
 	 * @see technology.tabula.tabula_web.workspace.WorkspaceDAO#getFileMetadata(java.lang.String)
 	 */
 	@Override
-	public WorkspaceEntry getFileMetadata(String id) throws WorkspaceException {
+	public WorkspaceDocument getFileMetadata(String id) throws WorkspaceException {
 		try {
 			this.readWorkspace();
-		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
+		} catch (JsonIOException | JsonSyntaxException | IOException e) {
 			throw new WorkspaceException(e);
 		}
 		
-		return this.workspace.stream().filter(we -> we.id.equals(id)).findFirst().get();	
+		return this.workspace.stream().filter(we -> we.id.equals(id)).findFirst().get();
 	}
 	
 	/* (non-Javadoc)

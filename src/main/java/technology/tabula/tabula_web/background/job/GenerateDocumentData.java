@@ -1,7 +1,6 @@
 package technology.tabula.tabula_web.background.job;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.UUID;
 import technology.tabula.tabula_web.extractor.PagesInfoExtractor;
 import technology.tabula.tabula_web.workspace.DocumentPage;
 import technology.tabula.tabula_web.workspace.WorkspaceDAO;
-import technology.tabula.tabula_web.workspace.WorkspaceEntry;
+import technology.tabula.tabula_web.workspace.WorkspaceDocument;
 
 public class GenerateDocumentData extends Job {
 
@@ -40,13 +39,11 @@ public class GenerateDocumentData extends Job {
 	@Override
 	public void perform() throws Exception {
 	    at(1, 100, "opening workspace...");
-	    
-	    System.out.println("perform y lpmqlp");
-	    
+
 	    List<DocumentPage> pages = PagesInfoExtractor.pagesInfo(this.filePath);
 	    
 	    // TODO file size
-	    WorkspaceEntry we = new WorkspaceEntry(originalFilename, id, 
+	    WorkspaceDocument we = new WorkspaceDocument(originalFilename, id,
 	    		Long.toString(LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()), 
 	    		pages.size(), new File(this.filePath).length(), thumbnailSizes);
 	    

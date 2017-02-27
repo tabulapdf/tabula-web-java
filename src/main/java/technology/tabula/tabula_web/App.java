@@ -10,6 +10,7 @@ import com.google.gson.JsonSyntaxException;
 import spark.route.RouteOverview;
 import technology.tabula.tabula_web.background.JobExecutor;
 import technology.tabula.tabula_web.routes.IndexRouteGroup;
+import technology.tabula.tabula_web.routes.JobProgressRouteGroup;
 import technology.tabula.tabula_web.routes.PdfRouteGroup;
 import technology.tabula.tabula_web.routes.PdfsRouteGroup;
 import technology.tabula.tabula_web.workspace.WorkspaceDAO;
@@ -27,6 +28,7 @@ public class App {
 	    path("/", new IndexRouteGroup(workspaceDAO));
 	    path("/pdfs/", new PdfsRouteGroup(workspaceDAO));
 	    path("/pdf/", new PdfRouteGroup(workspaceDAO));
+	    path("/queue/", new JobProgressRouteGroup());
 	  
 	}
 }
