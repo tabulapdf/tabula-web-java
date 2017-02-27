@@ -13,11 +13,11 @@ import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletResponse;
 
-public class PdfsRoute implements RouteGroup {
+public class PdfsRouteGroup implements RouteGroup {
 	
 	private WorkspaceDAO workspaceDAO;
 
-	public PdfsRoute(WorkspaceDAO workspaceDAO) {
+	public PdfsRouteGroup(WorkspaceDAO workspaceDAO) {
 		this.workspaceDAO = workspaceDAO;
 	}
 
