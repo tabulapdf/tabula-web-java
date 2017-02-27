@@ -39,8 +39,8 @@ public class Extractor {
 			Page p = pageIterator.next();
 			for (CoordSpec spec: specsByPage.get(p.getPageNumber())) {
 				boolean useSpreadsheetExtractionMethod;
-				if (spec.extraction_method == "spreadsheet" || spec.extraction_method == "original") {
-					useSpreadsheetExtractionMethod = spec.extraction_method == "spreadsheet";
+				if (spec.extraction_method.equals("spreadsheet") || spec.extraction_method.equals("original")) {
+					useSpreadsheetExtractionMethod = spec.extraction_method.equals("spreadsheet");
 				}
 				else {
 					useSpreadsheetExtractionMethod = sea.isTabular(p);
