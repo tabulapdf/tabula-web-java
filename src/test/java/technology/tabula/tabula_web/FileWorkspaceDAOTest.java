@@ -29,11 +29,7 @@ public class FileWorkspaceDAOTest extends TestCase {
 		
 		super.tearDown();
 	}
-	
-	public void testWorkspaceCreated() throws WorkspaceException {
-		//this.fw = new FileWorkspaceDAO(System.getProperty("java.io.tmpdir"));
-		//System.out.println(this.fw.getWorkspace().toString());
-	}
+
 	
 	public void testAddEntry() throws WorkspaceException, JsonIOException, JsonSyntaxException, IOException {
 	    List<DocumentPage> pages;
