@@ -23,7 +23,6 @@ public class App {
 		RouteOverview.enableRouteOverview();
 		
 		WorkspaceDAO workspaceDAO = new FileWorkspaceDAO(Settings.getDataDir());
-		JobExecutor jobExecutor = JobExecutor.getInstance();
 				
 	    path("/", new IndexRouteGroup(workspaceDAO));
 	    path("/pdfs/", new PdfsRouteGroup(workspaceDAO));

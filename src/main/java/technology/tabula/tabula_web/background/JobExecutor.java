@@ -20,6 +20,7 @@ public class JobExecutor extends ThreadPoolExecutor {
 	
 	private Map<String, Job> jobs = new ConcurrentHashMap<String, Job>();
 	private Map<Future<String>, Job> futureJobs = new ConcurrentHashMap<Future<String>, Job>();
+	private static Object mutex = new Object();
 	
 	final static Logger logger = LoggerFactory.getLogger(JobExecutor.class);
 	
@@ -28,7 +29,9 @@ public class JobExecutor extends ThreadPoolExecutor {
     }
 
     public static JobExecutor getInstance() {
-        return SingletonHolder.INSTANCE;
+    	synchronized (mutex) {
+    		return SingletonHolder.INSTANCE;	
+    	}
     }
     
 	private JobExecutor() {
