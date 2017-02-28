@@ -12,6 +12,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import technology.tabula.tabula_web.background.JobExecutor;
+import technology.tabula.tabula_web.background.job.DetectTables;
 import technology.tabula.tabula_web.background.job.GenerateDocumentData;
 import technology.tabula.tabula_web.workspace.WorkspaceDAO;
 
@@ -42,6 +43,10 @@ public class UploadRoute implements Route {
 				new GenerateDocumentData(this.workspaceDAO.getDocumentPath(documentId), originalFilename, documentId, 
 						this.workspaceDAO.getDocumentDir(documentId), new int[] { 800 }, jobBatch, workspaceDAO)
 				);
+
+		executor.submitJob(
+                new DetectTables(this.workspaceDAO.getDocumentPath(documentId), documentId, jobBatch, workspaceDAO)
+        );
 		
 		return "";
 	}
