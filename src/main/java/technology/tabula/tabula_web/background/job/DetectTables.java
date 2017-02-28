@@ -64,6 +64,7 @@ public class DetectTables extends Job {
         this.workspaceDAO.addFile(new ByteArrayInputStream(sb.toString().getBytes("UTF-8")), this.documentId, "tables.json");
 
         at(100, 100, "complete");
+        extractor.close();
 
     }
 }

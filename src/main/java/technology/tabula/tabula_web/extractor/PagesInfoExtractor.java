@@ -25,6 +25,8 @@ public class PagesInfoExtractor {
 			p = it.next();
 			rv.add(new DocumentPage(p.getWidth(), p.getHeight(), p.getPageNumber(), p.getRotation(), p.hasText()));
 		}
+
+		extractor.close();
 		
 		return rv;
 	}

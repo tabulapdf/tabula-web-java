@@ -42,7 +42,6 @@ public class GenerateDocumentData extends Job {
 
 	    List<DocumentPage> pages = PagesInfoExtractor.pagesInfo(this.filePath);
 	    
-	    // TODO file size
 	    WorkspaceDocument we = new WorkspaceDocument(originalFilename, id,
 	    		Long.toString(LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()), 
 	    		pages.size(), new File(this.filePath).length(), thumbnailSizes);
