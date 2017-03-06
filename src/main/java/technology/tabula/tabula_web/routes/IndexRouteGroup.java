@@ -22,7 +22,7 @@ public class IndexRouteGroup implements RouteGroup {
 	@Override
 	public void addRoutes() {
 		for(String path: indexes) {
-			get(path, (req, rsp) -> { return this.getIndex(); });
+			get(path, (req, rsp) -> this.getIndex());
 		}
 		post("upload.json", new UploadRoute(workspaceDAO));
 	}
