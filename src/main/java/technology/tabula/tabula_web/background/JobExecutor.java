@@ -73,6 +73,12 @@ public class JobExecutor extends ThreadPoolExecutor {
 		futureJobs.put(f, task);
 		return f;
 	}
+
+	public void submitJobs(Job... jobs) {
+		for (Job j: jobs) {
+			submitJob(j);
+		}
+	}
 	
 	public Job getJob(String uuid) {
 		return jobs.get(uuid);

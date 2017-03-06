@@ -38,16 +38,13 @@ public class UploadRoute implements Route {
 		
 		UUID jobBatch = UUID.randomUUID();
 		JobExecutor executor = JobExecutor.getInstance();
-		
-		executor.submitJob(
-				new GenerateDocumentData(this.workspaceDAO.getDocumentPath(documentId), originalFilename, documentId, 
-						this.workspaceDAO.getDocumentDir(documentId), new int[] { 800 }, jobBatch, workspaceDAO)
-				);
 
-		executor.submitJob(
-                new DetectTables(this.workspaceDAO.getDocumentPath(documentId), documentId, jobBatch, workspaceDAO)
-        );
-		
+		executor.submitJobs(
+				new GenerateDocumentData(this.workspaceDAO.getDocumentPath(documentId), originalFilename, documentId,
+						this.workspaceDAO.getDocumentDir(documentId), new int[] { 800 }, jobBatch, workspaceDAO),
+				new DetectTables(this.workspaceDAO.getDocumentPath(documentId), documentId, jobBatch, workspaceDAO)
+		);
+
 		return "";
 	}
 
