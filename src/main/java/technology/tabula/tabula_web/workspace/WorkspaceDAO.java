@@ -15,11 +15,9 @@ public interface WorkspaceDAO {
 	List<DocumentPage> getFilePages(String documentId) throws WorkspaceException;
 
 	String getDocumentPath(String documentId);
-	
-	String getDocumentDir(String documentId);
 
-	String getDataDir();
-	
+	InputStream getPageImage(String documentId, int pageNumber) throws WorkspaceException;
+
 	void addFile(InputStream stream, String documentId, String filename) throws WorkspaceException;
 
 }

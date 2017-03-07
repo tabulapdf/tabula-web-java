@@ -128,27 +128,24 @@ public class FileWorkspaceDAO implements WorkspaceDAO {
 	 */
 	@Override
 	public String getDocumentPath(String id) {
-		return Paths.get(this.getDataDir(), "pdfs", id, "document.pdf").toString();
-	}
-	
-	@Override
-	public String getDocumentDir(String documentId) {
-		// TODO Auto-generated method stub
-		return Paths.get(this.getDataDir(), "pdfs", documentId).toString();
+		return Paths.get(this.dataDir, "pdfs", id, "document.pdf").toString();
 	}
 
-
-	/* (non-Javadoc)
-	 * @see technology.tabula.tabula_web.workspace.WorkspaceDAO#getDataDir()
-	 */
 	@Override
-	public String getDataDir() {
-		return dataDir;
-	}
+	public InputStream getPageImage(String documentId, int pageNumber) throws WorkspaceException {
+		Path p = Paths.get(this.dataDir, "pdfs", documentId, "document_800_" + Integer.toString(pageNumber) + ".png");
+		File f = new File(p.toString());
+        try {
+            return new FileInputStream(f);
+        } catch (FileNotFoundException e) {
+            throw new WorkspaceException(e);
+        }
+    }
+
 
 	@Override
 	public void addFile(InputStream stream, String documentId, String filename) throws WorkspaceException {
-		Path p = Paths.get(this.getDataDir(), "pdfs", documentId);
+		Path p = Paths.get(this.dataDir, "pdfs", documentId);
 		
 		if (!Files.isDirectory(p)) {
 			try {
@@ -159,11 +156,9 @@ public class FileWorkspaceDAO implements WorkspaceDAO {
 		}
 		
         try {
-			Files.copy(stream, Paths.get(this.getDataDir(), "pdfs", documentId, filename), StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(stream, Paths.get(this.dataDir, "pdfs", documentId, filename), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			throw new WorkspaceException(e);
 		}
 	}
-
-
 }
