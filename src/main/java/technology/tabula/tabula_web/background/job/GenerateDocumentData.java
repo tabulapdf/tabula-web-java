@@ -16,20 +16,18 @@ public class GenerateDocumentData extends Job {
 	String filePath; 
 	String originalFilename; 
 	String id; 
-	String outputDir; 
-	int[] thumbnailSizes; 
+	int[] thumbnailSizes;
 	UUID batch;
 
 	private WorkspaceDAO workspaceDAO;
 	
-	public GenerateDocumentData(String filePath, String originalFilename, String id, String outputDir,
+	public GenerateDocumentData(String filePath, String originalFilename, String id,
 			int[] thumbnailSizes, UUID batch, WorkspaceDAO workspaceDAO) {
 		
 		super(batch);
 		this.filePath = filePath;
 		this.originalFilename = originalFilename;
 		this.id = id;
-		this.outputDir = outputDir;
 		this.thumbnailSizes = thumbnailSizes;
 		this.batch = batch;
 		

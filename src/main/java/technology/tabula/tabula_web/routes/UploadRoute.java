@@ -41,7 +41,7 @@ public class UploadRoute implements Route {
 
 		executor.submitJobs(
 				new GenerateDocumentData(this.workspaceDAO.getDocumentPath(documentId), originalFilename, documentId,
-						this.workspaceDAO.getDocumentDir(documentId), new int[] { 800 }, jobBatch, workspaceDAO),
+                        new int[] { 800 }, jobBatch, workspaceDAO),
 				new DetectTables(this.workspaceDAO.getDocumentPath(documentId), documentId, jobBatch, workspaceDAO)
 		);
 
