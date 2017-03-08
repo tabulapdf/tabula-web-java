@@ -29,7 +29,7 @@ public class PdfsRouteGroup implements RouteGroup {
 		
 		get(":file_id/pages.json", (req, rsp) -> {
 			rsp.type("application/json");
-			return this.workspaceDAO.getFilePages(req.params(":file_id"));
+			return this.workspaceDAO.getDocumentPages(req.params(":file_id"));
 		}, new JsonTransformer());
 		
 		get(":file_id/*", (req, rsp) -> {

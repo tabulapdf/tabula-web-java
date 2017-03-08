@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import spark.RouteGroup;
 import technology.tabula.tabula_web.App;
+import technology.tabula.tabula_web.JsonTransformer;
 import technology.tabula.tabula_web.workspace.WorkspaceDAO;
 
 import static spark.Spark.*;
@@ -30,6 +31,6 @@ public class IndexRouteGroup implements RouteGroup {
         for(String path: indexes) {
             get(path, (req, rsp) -> index);
         }
-        post("upload.json", new UploadRoute(workspaceDAO));
+        post("upload.json", new UploadRoute(workspaceDAO), new JsonTransformer());
     }
 }

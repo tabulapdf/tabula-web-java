@@ -32,24 +32,24 @@ public class FileWorkspaceDAOTest extends TestCase {
 	public void testAddEntry() throws WorkspaceException, JsonIOException, JsonSyntaxException, IOException {
 	    List<DocumentPage> pages;
 		FileWorkspaceDAO fw = new FileWorkspaceDAO(Paths.get(System.getProperty("java.io.tmpdir"), UUID.randomUUID().toString()).toString());
-		fw.addToWorkspace(new WorkspaceDocument("original.pdf", "11111-22222-44444", "1234234", 3, 42000, new int[] { 800 }),
+		fw.addDocument(new WorkspaceDocument("original.pdf", "11111-22222-44444", "1234234", 3, 42000, new int[] { 800 }),
 				Arrays.asList(new DocumentPage(800, 800, 1, 0, true)));
 
 		assertEquals(1, fw.getWorkspace().size());
 
 		// check that pages.json was generated
-        pages = fw.getFilePages("11111-22222-44444");
+        pages = fw.getDocumentPages("11111-22222-44444");
         assertEquals(pages.size(), 1);
         assertEquals(pages.get(0).number, 1);
 
 		// add another
-		fw.addToWorkspace(new WorkspaceDocument("original2.pdf", "11111-22222-55555", "1234234", 3, 42000, new int[] { 800 }),
+		fw.addDocument(new WorkspaceDocument("original2.pdf", "11111-22222-55555", "1234234", 3, 42000, new int[] { 800 }),
 				Arrays.asList(new DocumentPage(800, 800, 1, 90, true)));
 
 		assertEquals(2, fw.getWorkspace().size());
 
         // check that pages.json was generated
-        pages = fw.getFilePages("11111-22222-55555");
+        pages = fw.getDocumentPages("11111-22222-55555");
         assertEquals(pages.size(), 1);
         assertEquals(pages.get(0).number, 1);
         assertEquals(pages.get(0).rotation, 90);

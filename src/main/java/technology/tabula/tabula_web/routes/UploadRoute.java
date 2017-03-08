@@ -1,6 +1,7 @@
 package technology.tabula.tabula_web.routes;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.MultipartConfigElement;
@@ -18,6 +19,20 @@ import technology.tabula.tabula_web.background.job.GeneratePageThumbnails;
 import technology.tabula.tabula_web.workspace.WorkspaceDAO;
 
 public class UploadRoute implements Route {
+
+    class UploadStatus {
+        public final String filename;
+        public final boolean success;
+        public final String file_id;
+        public final String upload_id;
+
+        UploadStatus(String filename, boolean success, String file_id, String upload_id) {
+            this.filename = filename;
+            this.success = success;
+            this.file_id = file_id;
+            this.upload_id = upload_id;
+        }
+    }
 	
 	private WorkspaceDAO workspaceDAO;
     final static Logger logger = LoggerFactory.getLogger(UploadRoute.class);
@@ -28,6 +43,7 @@ public class UploadRoute implements Route {
 
 	@Override
 	public Object handle(Request request, Response response) throws Exception {
+        // TODO support upload of multiple files
 		request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement(System.getProperty("java.io.tmpdir")));
 		
 		Part part = request.raw().getPart("files[]");
@@ -51,7 +67,11 @@ public class UploadRoute implements Route {
 				new GeneratePageThumbnails(documentPath, documentId, jobBatch, workspaceDAO)
 		);
 
-		return "";
+
+        ArrayList<UploadStatus> resp = new ArrayList<UploadStatus>();
+        resp.add(new UploadStatus(originalFilename, true, documentId, jobBatch.toString()));
+
+		return resp;
 	}
 
 }

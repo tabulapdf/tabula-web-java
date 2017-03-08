@@ -13,13 +13,14 @@ import technology.tabula.tabula_web.routes.PdfRouteGroup;
 import technology.tabula.tabula_web.routes.PdfsRouteGroup;
 import technology.tabula.tabula_web.workspace.WorkspaceDAO;
 import technology.tabula.tabula_web.workspace.FileWorkspaceDAO;
+import technology.tabula.tabula_web.workspace.WorkspaceException;
 
 
 public class App {
 
 	private static final String VERSION = "1.1.0";
 	
-	public static void main(String[] args) throws JsonIOException, JsonSyntaxException, IOException {
+	public static void main(String[] args) throws JsonIOException, JsonSyntaxException, IOException, WorkspaceException {
 		staticFiles.location("/public");
 		RouteOverview.enableRouteOverview();
 		

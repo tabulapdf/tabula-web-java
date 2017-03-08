@@ -8,11 +8,13 @@ public interface WorkspaceDAO {
 	
 	Workspace getWorkspace() throws WorkspaceException;
 
-	void addToWorkspace(WorkspaceDocument we, List<DocumentPage> pages) throws WorkspaceException;
+	void addDocument(WorkspaceDocument we, List<DocumentPage> pages) throws WorkspaceException;
 
-	WorkspaceDocument getFileMetadata(String documentId) throws WorkspaceException;
+	void deleteDocument(String documentId) throws WorkspaceException;
 
-	List<DocumentPage> getFilePages(String documentId) throws WorkspaceException;
+	WorkspaceDocument getDocumentMetadata(String documentId) throws WorkspaceException;
+
+	List<DocumentPage> getDocumentPages(String documentId) throws WorkspaceException;
 
 	String getDocumentPath(String documentId);
 	

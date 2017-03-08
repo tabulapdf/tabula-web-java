@@ -47,7 +47,7 @@ public class GenerateDocumentData extends Job {
 	    	throw new Exception("No text data found");
 	    }
 	    
-	    this.workspaceDAO.addToWorkspace(we, pages);
+	    this.workspaceDAO.addDocument(we, pages);
 	    	    
 	    at(100, 100, "Complete");
 	}
