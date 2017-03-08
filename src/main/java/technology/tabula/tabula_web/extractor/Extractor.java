@@ -19,9 +19,11 @@ import technology.tabula.extractors.SpreadsheetExtractionAlgorithm;
 
 public class Extractor {
 
-	public static List<TableWithSpecIndex> extractTables(String pdfPath, List<CoordSpec> specs) throws IOException {
+	@SuppressWarnings("Convert2Diamond")
+    public static List<TableWithSpecIndex> extractTables(String pdfPath, List<CoordSpec> specs) throws IOException {
 		
 		Map<Integer, List<CoordSpec>> specsByPage = specs.stream().collect(Collectors.groupingBy(CoordSpec::getPage));
+		//noinspection Convert2Diamond
 		List<Integer> pages = new ArrayList<Integer>(specsByPage.keySet());
 		Collections.sort(pages);
 		
@@ -32,7 +34,8 @@ public class Extractor {
 		BasicExtractionAlgorithm bea = new BasicExtractionAlgorithm();
 		
 		PageIterator pageIterator = extractor.extract(pages);
-		
+
+		//noinspection Convert2Diamond
 		List<TableWithSpecIndex> rv = new ArrayList<TableWithSpecIndex>();
 		
 		while (pageIterator.hasNext()) {

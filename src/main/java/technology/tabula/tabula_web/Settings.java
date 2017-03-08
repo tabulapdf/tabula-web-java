@@ -26,7 +26,7 @@ public class Settings {
 	        // Windows OS version. so use that env var directly, basically
 	        String appdata = System.getenv("APPDATA");
 	        if (appdata == null) {
-	          home = java.lang.System.getProperty("user.home");
+	          appdata = java.lang.System.getProperty("user.home");
 	        }
 	        dataDir = new java.io.File(appdata, "/Tabula").getPath();
 	    }
@@ -35,7 +35,7 @@ public class Settings {
 	        dataDir = Paths.get(home, "/Library/Application Support/Tabula").toString();
 	    }
 	    else { // probably *NIX
-	    	
+	    	// TODO implement *NIX
 	    }
 	    
 	    return dataDir;

@@ -13,7 +13,8 @@ import technology.tabula.tabula_web.workspace.DocumentPage;
 
 public class PagesInfoExtractor {
 
-	public static List<DocumentPage> pagesInfo(String pdfPath) throws IOException {
+	@SuppressWarnings("Convert2Diamond")
+    public static List<DocumentPage> pagesInfo(String pdfPath) throws IOException {
 		PDDocument document = PDDocument.load(pdfPath);
 		ObjectExtractor extractor = new ObjectExtractor(document);
 		

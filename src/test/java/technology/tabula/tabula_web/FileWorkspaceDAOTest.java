@@ -17,8 +17,6 @@ import technology.tabula.tabula_web.workspace.WorkspaceException;
 
 public class FileWorkspaceDAOTest extends TestCase {
 
-	private FileWorkspaceDAO fw;
-
 	protected void setUp() throws Exception {
 		super.setUp();
 		
@@ -33,9 +31,9 @@ public class FileWorkspaceDAOTest extends TestCase {
 	
 	public void testAddEntry() throws WorkspaceException, JsonIOException, JsonSyntaxException, IOException {
 	    List<DocumentPage> pages;
-		fw = new FileWorkspaceDAO(Paths.get(System.getProperty("java.io.tmpdir"), UUID.randomUUID().toString()).toString());
+		FileWorkspaceDAO fw = new FileWorkspaceDAO(Paths.get(System.getProperty("java.io.tmpdir"), UUID.randomUUID().toString()).toString());
 		fw.addToWorkspace(new WorkspaceDocument("original.pdf", "11111-22222-44444", "1234234", 3, 42000, new int[] { 800 }),
-				Arrays.asList(new DocumentPage[] { new DocumentPage(800, 800, 1, 0, true) }));
+				Arrays.asList(new DocumentPage(800, 800, 1, 0, true)));
 
 		assertEquals(1, fw.getWorkspace().size());
 
@@ -46,7 +44,7 @@ public class FileWorkspaceDAOTest extends TestCase {
 
 		// add another
 		fw.addToWorkspace(new WorkspaceDocument("original2.pdf", "11111-22222-55555", "1234234", 3, 42000, new int[] { 800 }),
-				Arrays.asList(new DocumentPage[] { new DocumentPage(800, 800, 1, 90, true) }));
+				Arrays.asList(new DocumentPage(800, 800, 1, 90, true)));
 
 		assertEquals(2, fw.getWorkspace().size());
 

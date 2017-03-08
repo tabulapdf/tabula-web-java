@@ -7,7 +7,6 @@ import technology.tabula.tabula_web.workspace.WorkspaceDAO;
 
 import static spark.Spark.get;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 

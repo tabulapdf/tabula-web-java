@@ -20,14 +20,12 @@ public class DetectTables extends Job {
 
     private final String filePath;
     private final String documentId;
-    private final UUID batch;
     private WorkspaceDAO workspaceDAO;
 
     public DetectTables(String filePath, String documentId, UUID batch, WorkspaceDAO workspaceDAO) {
         super(batch);
         this.filePath = filePath;
         this.documentId = documentId;
-        this.batch = batch;
         this.workspaceDAO = workspaceDAO;
     }
 

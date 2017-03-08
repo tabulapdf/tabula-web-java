@@ -17,7 +17,6 @@ public class GenerateDocumentData extends Job {
 	String originalFilename; 
 	String id; 
 	int[] thumbnailSizes;
-	UUID batch;
 
 	private WorkspaceDAO workspaceDAO;
 	
@@ -28,9 +27,8 @@ public class GenerateDocumentData extends Job {
 		this.filePath = filePath;
 		this.originalFilename = originalFilename;
 		this.id = id;
-		this.thumbnailSizes = thumbnailSizes;
-		this.batch = batch;
-		
+		this.thumbnailSizes = thumbnailSizes.clone();
+
 		this.workspaceDAO = workspaceDAO;
 	}
 

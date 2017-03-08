@@ -16,7 +16,7 @@ public class WorkspaceDocument {
 		this.time = time;
 		this.page_count = page_count;
 		this.size = size;
-		this.thumbnail_sizes = thumbnail_sizes;
+		this.thumbnail_sizes = thumbnail_sizes.clone();
 	}
 	  
 	  

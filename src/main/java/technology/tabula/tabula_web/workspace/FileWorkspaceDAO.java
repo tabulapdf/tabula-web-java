@@ -31,7 +31,7 @@ public class FileWorkspaceDAO implements WorkspaceDAO {
 		// create if doesn't exist
 		if (!Files.exists(this.workspacePath)) {
 			Files.createDirectories(this.workspacePath.getParent());
-			Files.write(this.workspacePath, "[]".getBytes());
+			Files.write(this.workspacePath, "[]".getBytes("UTF-8"));
 			this.workspace = new Workspace();
 			//this.flushWorkspace();
 		}

@@ -10,6 +10,13 @@
 	<name>tabula-web</name>
 	<url>http://maven.apache.org</url>
 
+    <repositories>
+        <repository>
+            <id>clojars.org</id>
+            <url>http://clojars.org/repo</url>
+        </repository>
+    </repositories>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -36,8 +43,11 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.21</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.jpedal</groupId>
+			<artifactId>jpedal-lgpl</artifactId>
+			<version>4.74b27</version>
+		</dependency>
 	</dependencies>
 
 

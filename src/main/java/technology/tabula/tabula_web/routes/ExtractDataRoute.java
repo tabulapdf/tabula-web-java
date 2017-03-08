@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +33,7 @@ import technology.tabula.writers.TSVWriter;
 
 public class ExtractDataRoute implements Route {
 	
-	class TableSerializerExclusionStrategy implements ExclusionStrategy {
+	static class TableSerializerExclusionStrategy implements ExclusionStrategy {
 
         @Override
         public boolean shouldSkipClass(Class<?> arg0) {
@@ -113,7 +112,7 @@ public class ExtractDataRoute implements Route {
 				
 				sb = new StringBuilder();
 				new CSVWriter().write(sb, t);
-				zos.write(sb.toString().getBytes());
+				zos.write(sb.toString().getBytes("UTF-8"));
 				zos.closeEntry();
 			}
 			zos.finish();

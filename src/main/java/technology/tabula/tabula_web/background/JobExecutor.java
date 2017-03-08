@@ -1,5 +1,6 @@
 package technology.tabula.tabula_web.background;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,6 +10,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +20,11 @@ import technology.tabula.tabula_web.background.job.Job;
 
 public class JobExecutor extends ThreadPoolExecutor {
 	
+	@SuppressWarnings("Convert2Diamond")
 	private Map<String, Job> jobs = new ConcurrentHashMap<String, Job>();
+	@SuppressWarnings("Convert2Diamond")
 	private Map<Future<String>, Job> futureJobs = new ConcurrentHashMap<Future<String>, Job>();
-	private static Object mutex = new Object();
+	private static final Object mutex = new Object();
 	
 	final static Logger logger = LoggerFactory.getLogger(JobExecutor.class);
 	
@@ -34,6 +38,7 @@ public class JobExecutor extends ThreadPoolExecutor {
     	}
     }
     
+	@SuppressWarnings("Convert2Diamond")
 	private JobExecutor() {
 		super(3, 10, 300, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 		logger.info("Starting JobExecutor");
@@ -84,9 +89,10 @@ public class JobExecutor extends ThreadPoolExecutor {
 		return jobs.get(uuid);
 	}
 	
-/*	public List<Job> getByBatch(String uuid) {
-		jobs.entrySet().stream().filter(predicate)
-	}*/
-	
-
+	public List<Job> getByBatch(String uuid) {
+		return jobs.values()
+				.stream()
+				.filter(j -> j.getBatch().equals(uuid))
+                .collect(Collectors.toList());
+	}
 }

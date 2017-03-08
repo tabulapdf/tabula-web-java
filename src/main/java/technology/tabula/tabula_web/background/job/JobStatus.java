@@ -3,7 +3,7 @@ package technology.tabula.tabula_web.background.job;
 import java.time.LocalDateTime;
 
 class JobStatus {
-	public enum STATUS { QUEUED, WORKING, COMPLETED, FAILED, KILLED };
+	public enum STATUS { QUEUED, WORKING, COMPLETED, FAILED, KILLED }
 	
 	STATUS status;
 	LocalDateTime startedOn;

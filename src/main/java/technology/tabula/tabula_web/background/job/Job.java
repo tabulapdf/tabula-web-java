@@ -59,6 +59,13 @@ public abstract class Job implements Callable<String> {
 		this.status.total = total;
 		this.status.message = message;
 	}
+
+	public boolean isFailed() {
+	    return this.status.status == JobStatus.STATUS.FAILED;
+    }
+    public boolean isWorking() {
+	    return this.status.status == JobStatus.STATUS.WORKING;
+    }
 	
 	public abstract void perform() throws Exception;
 }
