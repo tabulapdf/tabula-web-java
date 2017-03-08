@@ -12,25 +12,24 @@ import static spark.Spark.*;
 
 public class IndexRouteGroup implements RouteGroup {
 
-	private String[] indexes = new String[] { "pdf/:file_id", "help", "about" };
-	private WorkspaceDAO workspaceDAO; 
-	
-	public IndexRouteGroup(WorkspaceDAO workspaceDAO) {
-		this.workspaceDAO = workspaceDAO;
-	}
+    private static final String index;
 
-	@Override
-	public void addRoutes() {
-		for(String path: indexes) {
-			get(path, (req, rsp) -> this.getIndex());
-		}
-		post("upload.json", new UploadRoute(workspaceDAO));
-	}
-	
-	@SuppressWarnings("resource")
-	private String getIndex() {
-		String index = new Scanner(App.class.getClassLoader().getResourceAsStream("public/index.html"), "UTF-8").useDelimiter("\\A").next();
-		return index;
-	}
-	
+    static {
+        index = new Scanner(App.class.getClassLoader().getResourceAsStream("public/index.html"), "UTF-8").useDelimiter("\\A").next();
+    }
+
+    private static final String[] indexes = new String[] { "pdf/:file_id", "help", "about" };
+    private WorkspaceDAO workspaceDAO;
+
+    public IndexRouteGroup(WorkspaceDAO workspaceDAO) {
+        this.workspaceDAO = workspaceDAO;
+    }
+
+    @Override
+    public void addRoutes() {
+        for(String path: indexes) {
+            get(path, (req, rsp) -> index);
+        }
+        post("upload.json", new UploadRoute(workspaceDAO));
+    }
 }
