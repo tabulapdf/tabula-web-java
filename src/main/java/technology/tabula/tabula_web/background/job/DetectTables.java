@@ -10,6 +10,7 @@ import technology.tabula.detectors.NurminenDetectionAlgorithm;
 import technology.tabula.tabula_web.workspace.WorkspaceDAO;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -31,10 +32,11 @@ public class DetectTables extends Job {
 
     @Override
     public void perform() throws Exception {
-        PDDocument document = PDDocument.load(filePath);
+
+        PDDocument document = PDDocument.load(new File(filePath));
         ObjectExtractor extractor = new ObjectExtractor(document);
         PageIterator it = extractor.extract();
-        int pageCount = extractor.getPageCount();
+        int pageCount = document.getNumberOfPages();
         NurminenDetectionAlgorithm nda = new NurminenDetectionAlgorithm();
         ArrayList<List<double[]>> pageAreasByPage = new ArrayList<>();
 
