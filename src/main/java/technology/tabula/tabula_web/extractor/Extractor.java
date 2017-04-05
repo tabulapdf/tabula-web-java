@@ -1,5 +1,6 @@
 package technology.tabula.tabula_web.extractor;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +28,7 @@ public class Extractor {
 		List<Integer> pages = new ArrayList<Integer>(specsByPage.keySet());
 		Collections.sort(pages);
 		
-		PDDocument document = PDDocument.load(pdfPath);
+		PDDocument document = PDDocument.load(new File(pdfPath));
 		ObjectExtractor extractor = new ObjectExtractor(document);
 		
 		SpreadsheetExtractionAlgorithm sea = new SpreadsheetExtractionAlgorithm();

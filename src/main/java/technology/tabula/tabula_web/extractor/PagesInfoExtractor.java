@@ -1,5 +1,6 @@
 package technology.tabula.tabula_web.extractor;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class PagesInfoExtractor {
 
 	@SuppressWarnings("Convert2Diamond")
     public static List<DocumentPage> pagesInfo(String pdfPath) throws IOException {
-		PDDocument document = PDDocument.load(pdfPath);
+		PDDocument document = PDDocument.load(new File(pdfPath));
 		ObjectExtractor extractor = new ObjectExtractor(document);
 		
 		ArrayList<DocumentPage> rv = new ArrayList<DocumentPage>(); 
