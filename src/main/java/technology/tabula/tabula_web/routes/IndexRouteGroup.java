@@ -19,7 +19,7 @@ public class IndexRouteGroup implements RouteGroup {
         index = new Scanner(App.class.getClassLoader().getResourceAsStream("public/index.html"), "UTF-8").useDelimiter("\\A").next();
     }
 
-    private static final String[] indexes = new String[] { "pdf/:file_id", "help", "about" };
+    private static final String[] indexes = new String[]{"pdf/:file_id", "help", "about"};
     private WorkspaceDAO workspaceDAO;
 
     public IndexRouteGroup(WorkspaceDAO workspaceDAO) {
@@ -28,7 +28,7 @@ public class IndexRouteGroup implements RouteGroup {
 
     @Override
     public void addRoutes() {
-        for(String path: indexes) {
+        for (String path : indexes) {
             get(path, (req, rsp) -> index);
         }
         post("upload.json", new UploadRoute(workspaceDAO), new JsonTransformer());

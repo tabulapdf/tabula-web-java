@@ -51,16 +51,13 @@ public class JobProgressRouteGroup implements RouteGroup {
             if (jobs.isEmpty()) {
                 response.status(404);
                 return new JobProgress("error", "No such job", "no-such-job", 0);
-            }
-            else if (jobs.stream().anyMatch(j -> j.isFailed() && (j instanceof GenerateDocumentData))) {
+            } else if (jobs.stream().anyMatch(j -> j.isFailed() && (j instanceof GenerateDocumentData))) {
                 return new JobProgress("error", "Fatal Error: No text data is contained in this PDF file. Tabula can't process it.",
                         "no-text", 99);
-            }
-            else if (jobs.stream().anyMatch(Job::isFailed)) {
+            } else if (jobs.stream().anyMatch(Job::isFailed)) {
                 return new JobProgress("error", "Sorry, your file upload could not be processed. Please double-check that the file you uploaded is a valid PDF file and try again.",
                         "unknown", 99);
-            }
-            else {
+            } else {
                 List<Job> batch = jobs.stream().filter(j -> !((j instanceof DetectTables) && j.isWorking())).collect(Collectors.toList());
                 batch.sort((j1, j2) -> Integer.compare(j1.percentComplete(), j2.percentComplete()));
 
@@ -82,6 +79,8 @@ public class JobProgressRouteGroup implements RouteGroup {
     @Override
     public void addRoutes() {
         get(":upload_id/json", new JobStatusJson(), new JsonTransformer());
-        get(":upload_id", (req, rsp) -> { return ""; }); // TODO: implement
+        get(":upload_id", (req, rsp) -> {
+            return "";
+        }); // TODO: implement
     }
 }
