@@ -10,13 +10,14 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import technology.tabula.ObjectExtractor;
 import technology.tabula.Page;
 import technology.tabula.PageIterator;
+import technology.tabula.tabula_web.Utils;
 import technology.tabula.tabula_web.workspace.DocumentPage;
 
 public class PagesInfoExtractor {
 
 	@SuppressWarnings("Convert2Diamond")
     public static List<DocumentPage> pagesInfo(String pdfPath) throws IOException {
-		PDDocument document = PDDocument.load(new File(pdfPath));
+		PDDocument document = Utils.openPDF(pdfPath);
 		ObjectExtractor extractor = new ObjectExtractor(document);
 		
 		ArrayList<DocumentPage> rv = new ArrayList<DocumentPage>(); 

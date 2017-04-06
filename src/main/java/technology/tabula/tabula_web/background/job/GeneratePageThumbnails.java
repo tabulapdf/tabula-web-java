@@ -4,6 +4,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import technology.tabula.tabula_web.Utils;
 import technology.tabula.tabula_web.workspace.WorkspaceDAO;
 
 
@@ -29,7 +30,7 @@ public class GeneratePageThumbnails extends Job {
         this.documentId = documentId;
         this.workspaceDAO = workspaceDAO;
 
-        this.pdfDocument = PDDocument.load(new File(this.filePath));
+        this.pdfDocument = Utils.openPDF(this.filePath);
     }
 
     @Override

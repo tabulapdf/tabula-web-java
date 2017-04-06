@@ -17,6 +17,7 @@ import technology.tabula.Table;
 import technology.tabula.extractors.BasicExtractionAlgorithm;
 import technology.tabula.extractors.ExtractionAlgorithm;
 import technology.tabula.extractors.SpreadsheetExtractionAlgorithm;
+import technology.tabula.tabula_web.Utils;
 
 public class Extractor {
 
@@ -28,7 +29,7 @@ public class Extractor {
 		List<Integer> pages = new ArrayList<Integer>(specsByPage.keySet());
 		Collections.sort(pages);
 		
-		PDDocument document = PDDocument.load(new File(pdfPath));
+		PDDocument document = Utils.openPDF(pdfPath);
 		ObjectExtractor extractor = new ObjectExtractor(document);
 		
 		SpreadsheetExtractionAlgorithm sea = new SpreadsheetExtractionAlgorithm();

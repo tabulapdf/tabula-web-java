@@ -7,6 +7,7 @@ import technology.tabula.Page;
 import technology.tabula.PageIterator;
 import technology.tabula.Rectangle;
 import technology.tabula.detectors.NurminenDetectionAlgorithm;
+import technology.tabula.tabula_web.Utils;
 import technology.tabula.tabula_web.workspace.WorkspaceDAO;
 
 import java.io.ByteArrayInputStream;
@@ -33,7 +34,7 @@ public class DetectTables extends Job {
     @Override
     public void perform() throws Exception {
 
-        PDDocument document = PDDocument.load(new File(filePath));
+        PDDocument document = Utils.openPDF(filePath);
         ObjectExtractor extractor = new ObjectExtractor(document);
         PageIterator it = extractor.extract();
         int pageCount = document.getNumberOfPages();
